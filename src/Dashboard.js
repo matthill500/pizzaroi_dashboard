@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner'
-import {Line, defaults} from 'react-chartjs-2'
+import {Line} from 'react-chartjs-2'
 class Dashboard extends Component {
   render(){
     
