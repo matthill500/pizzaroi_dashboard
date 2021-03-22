@@ -22,6 +22,8 @@ class App extends Component {
     this.state = {
       user: localUser,
       orders: [],
+      pizzaOrders: [],
+      sideOrders:[],
       error: null
     };
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
@@ -39,9 +41,10 @@ class App extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        console.log(result);
         this.setState({
-          orders: result.data
+          orders: result.data,
+          pizzaOrders: result.queriedOrdersPizzas,
+          sideOrders: result.queriedOrdersSides
         });
       },
       (error) => {
@@ -62,13 +65,14 @@ class App extends Component {
     if(id !== 1){
       alert("You are not authorized!");
     }else{
+      localStorage.setItem('user', JSON.stringify(loggedInUser));
       this.setState({
         user: loggedInUser
       });
       if(remember){
         localStorage.setItem('user', JSON.stringify(loggedInUser));
       }
-      this.props.history.push('/dashboard');
+      this.props.history.push('/');
     }
    }
   }
@@ -94,6 +98,8 @@ class App extends Component {
           <Route path="/dashboard">
               <Dashboard 
                 orders={this.state.orders}
+                pizzas={this.state.pizzaOrders}
+                sides={this.state.sideOrders}
                 user={this.state.user}
               />
           </Route>
