@@ -24,6 +24,8 @@ class App extends Component {
       orders: [],
       pizzaOrders: [],
       sideOrders:[],
+      actualStock:[],
+      idealStock:[],
       error: null
     };
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
@@ -53,7 +55,52 @@ class App extends Component {
         });
       }
     );
+    fetch(this.REST_API + "/ActualStock",{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + this.state.user.token
+      }
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        // console.log(result.data);
+        this.setState({
+          actualStock: result.data
+        });
+      },
+      (error) => {
+        this.setState({
+          error: error
+        });
+      }
+    );
+    fetch(this.REST_API + "/IdealStock",{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + this.state.user.token
+      }
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        // console.log(result.data);
+        this.setState({
+          idealStock: result.data
+        });
+      },
+      (error) => {
+        this.setState({
+          error: error
+        });
+      }
+    );
   }
+  
 
   onLoginSuccess(loggedInUser, remember){
     let id;
@@ -92,7 +139,7 @@ class App extends Component {
           <Route exact path="/login">
               <Login onLoginSuccess={this.onLoginSuccess} />
           </Route>
-          <Route  path="/register">
+          <Route path="/register">
               <Register />
           </Route>
           <Route path="/dashboard">
@@ -106,6 +153,8 @@ class App extends Component {
           <Route path="/stock">
               <Stock 
                 user={this.state.user}
+                actualStock={this.state.actualStock}
+                idealStock={this.state.idealStock}
               />
           </Route>
         </Switch>

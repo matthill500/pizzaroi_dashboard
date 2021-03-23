@@ -40,7 +40,7 @@ class Navi extends Component {
     return (
     <SideNav>
     <SideNav.Toggle />
-    <SideNav.Nav defaultSelected="home">
+    <SideNav.Nav defaultSelected="home" style={{textAlign:'center'}}>
       {user === null &&
         <NavItem>
                 <NavIcon>
