@@ -26,79 +26,89 @@ class App extends Component {
       sideOrders:[],
       actualStock:[],
       idealStock:[],
+      topActualStock:[],
+      sideActualStock:[],
+      topIdealStock:[],
+      sideIdealStock:[],
       error: null
     };
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLogoutSuccess = this.onLogoutSuccess.bind(this);
   }
   componentDidMount(){
-    fetch(this.REST_API + "/orders",{
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.state.user.token
-      }
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          orders: result.data,
-          pizzaOrders: result.queriedOrdersPizzas,
-          sideOrders: result.queriedOrdersSides
-        });
-      },
-      (error) => {
-        this.setState({
-          error: error
-        });
-      }
-    );
-    fetch(this.REST_API + "/ActualStock",{
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.state.user.token
-      }
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        // console.log(result.data);
-        this.setState({
-          actualStock: result.data
-        });
-      },
-      (error) => {
-        this.setState({
-          error: error
-        });
-      }
-    );
-    fetch(this.REST_API + "/IdealStock",{
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.state.user.token
-      }
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        // console.log(result.data);
-        this.setState({
-          idealStock: result.data
-        });
-      },
-      (error) => {
-        this.setState({
-          error: error
-        });
-      }
-    );
+    if(this.state.user !== null){
+      fetch(this.REST_API + "/orders",{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.state.user.token
+        }
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            orders: result.data,
+            pizzaOrders: result.queriedOrdersPizzas,
+            sideOrders: result.queriedOrdersSides
+          });
+        },
+        (error) => {
+          this.setState({
+            error: error
+          });
+        }
+      );
+      fetch(this.REST_API + "/ActualStock",{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.state.user.token
+        }
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          // console.log(result.data);
+          this.setState({
+            actualStock: result.data,
+            topActualStock: result.tops,
+            sideActualStock: result.sides
+          });
+        },
+        (error) => {
+          this.setState({
+            error: error
+          });
+        }
+      );
+      fetch(this.REST_API + "/IdealStock",{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.state.user.token
+        }
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          // console.log(result.data);
+          this.setState({
+            idealStock: result.data,
+            topIdealStock: result.tops,
+            sideIdealStock: result.sides
+          });
+        },
+        (error) => {
+          this.setState({
+            error: error
+          });
+        }
+      );
+    }
   }
   
 
@@ -155,6 +165,10 @@ class App extends Component {
                 user={this.state.user}
                 actualStock={this.state.actualStock}
                 idealStock={this.state.idealStock}
+                topActualStock={this.state.topActualStock}
+                sideActualStock={this.state.sideActualStock}
+                topIdealStock={this.state.topIdealStock}
+                sideIdealStock={this.state.sideIdealStock}
               />
           </Route>
         </Switch>

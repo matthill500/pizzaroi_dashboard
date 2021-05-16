@@ -38,9 +38,9 @@ class Navi extends Component {
   render(){
     const user = this.props.user;
     return (
-    <SideNav>
-    <SideNav.Toggle />
-    <SideNav.Nav defaultSelected="home" style={{textAlign:'center'}}>
+    <SideNav style={{backgroundColor:'#007788', position:'fixed'}}>
+    <SideNav.Toggle  />
+    <SideNav.Nav defaultSelected="home">
       {user === null &&
         <NavItem>
                 <NavIcon>
@@ -52,7 +52,7 @@ class Navi extends Component {
                 </Link>
                 </NavText>
         </NavItem>}
-        {user === null &&
+        {/* {user === null &&
         <NavItem>
             <NavIcon>
                 <i className="fas fa-user-plus" style={{ fontSize: '1.75em' }} />
@@ -62,7 +62,7 @@ class Navi extends Component {
             Register
             </Link>
             </NavText>
-        </NavItem>}
+        </NavItem>} */}
         {user !== null &&
         <NavItem>
             <NavIcon>
@@ -96,8 +96,6 @@ class Navi extends Component {
             </Link>
             </NavText>
         </NavItem>}
-        
-        
     </SideNav.Nav>
     </SideNav>
     );

@@ -75,45 +75,41 @@ class Dashboard extends Component {
   //BARCHART LOGIC
 
   const dayTime = orders.filter(function(order){return order.created_at.slice(11,13) < 17;}).length
-  const nightTime = orders.filter(function(order){return order.created_at.slice(11,13)>15;}).length
+  const nightTime = orders.filter(function(order){return order.created_at.slice(11,13) > 17;}).length
   
 
     return (
       <>
        <div className="container-fluid">
-       <div className="row justify-content-center" style={{marginBottom:'1em'}}>
-      <Card style={{ margin: '20px', width: '12rem', height: '8rem', color:'white', backgroundColor:'#db3d44',float:'left'}}>
-        <Card.Body>
-          <Card.Title style={{marginTop: '0.8em',fontSize:'16px'}}>Total Revenue</Card.Title>
-          <Card.Text>
-            €{totalRevenue}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      <Card style={{ margin: '20px', width: '12rem', height: '8rem', color:'white', backgroundColor:'#db3d44', float:'left'}}>
-        <Card.Body>
-          <Card.Title style={{marginTop: '0.8em', fontSize:'16px'}}>Total Orders</Card.Title>
-          <Card.Text>
+       <div className="row justify-content-center" style={{marginBottom:'2.5em'}}>
+        <Card>
+          <Card.Body style={{textAlign:'center'}}>
+          <div className="float-left" style={{marginLeft:'5em'}}>
+            <Card.Title style={{marginTop: '0.5em',fontSize:'15px'}}>Total Revenue</Card.Title>
+            <Card.Text>
+              €{totalRevenue}
+            </Card.Text>
+            </div>
+            <div className="float-left" style={{marginLeft:'5em'}}>
+            <Card.Title style={{marginTop: '0.5em',fontSize:'15px'}}>Total Orders</Card.Title>
+            <Card.Text>
             {orders.length}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      <Card style={{ margin: '20px', width: '12rem',height: '8rem', color:'white', backgroundColor:'#db3d44', float:'left'}}>
-        <Card.Body>
-          <Card.Title style={{marginTop: '0.8em', fontSize:'16px'}}>Total Revenue Today</Card.Title>
-          <Card.Text>
+            </Card.Text>
+            </div>
+            <div className="float-left" style={{marginLeft:'5em'}}>
+            <Card.Title style={{marginTop: '0.5em',fontSize:'15px'}}>Total Revenue Today</Card.Title>
+            <Card.Text>
             €{todayTotalRevenue}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      <Card style={{ margin: '20px', width: '12rem',height: '8rem', color:'white', backgroundColor:'#db3d44', float:'left'}}>
-        <Card.Body>
-          <Card.Title style={{marginTop: '0.8em', fontSize:'16px'}}>Total Orders Today</Card.Title>
-          <Card.Text>
+            </Card.Text>
+            </div>
+            <div className="float-left" style={{marginLeft:'5em'}}>
+            <Card.Title style={{marginTop: '0.5em',fontSize:'15px'}}>Total Orders Today</Card.Title>
+            <Card.Text>
             {todayOrders.length}
-          </Card.Text>
-        </Card.Body>
-      </Card>
+            </Card.Text>
+            </div>
+          </Card.Body>
+        </Card>
       </div>
      
   <div className="row">
@@ -130,7 +126,9 @@ class Dashboard extends Component {
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(34,139,34, 0.2)',
+                'rgba(0,255,127, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -138,15 +136,18 @@ class Dashboard extends Component {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(255, 159, 64, 1)',
+                'rgba(34,139,34,1)',
+                'rgba(0,255,127, 1)'
             ],
             borderWidth: 2
             },
           ]
         }}
-        height={380}
-        width={450}
+        height={325}
+        width={700}
         options={{
+          responsive: false,
           maintainAspectRatio: false,
           scales:{
             yAxes:[
@@ -159,8 +160,10 @@ class Dashboard extends Component {
             ]
           },
           legend:{
+          
+            position: 'left',
             labels:{
-              fontSize:12
+              fontSize:15
             }
           }
         }}
@@ -212,7 +215,9 @@ class Dashboard extends Component {
             ]
           },
           legend:{
+            position: 'bottom',
             labels:{
+              boxWidth:0,
               fontSize:15
             }
           }
@@ -224,7 +229,7 @@ class Dashboard extends Component {
           <div className="col-sm-12">
           <Line
         data={{
-          labels: ['JANUARY', 'FEBURARY', 'MARCH', 'APRIL', 'MAY', 'JUNE','JULY','AUGUST','SEPTEMEBER','OCTOBER','NOVEMBER','DECEMEBER'],
+          labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN','JUL','AUG','SEP','OCT','NOV','DECE'],
           datasets:[
             {
               label: 'Number of Orders Per Month',
@@ -263,8 +268,9 @@ class Dashboard extends Component {
             ]
           },
           legend:{
+            position: 'bottom',
             labels:{
-              fontSize:25
+              fontSize:15
             }
           }
         }}
